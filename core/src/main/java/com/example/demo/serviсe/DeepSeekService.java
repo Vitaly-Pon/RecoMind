@@ -27,13 +27,18 @@ public class DeepSeekService {
         this.restTemplate = new RestTemplate();
     }
 
-    public String getMovieRecommendation(String userPrompt) {
+    public String getMovieRecommendations(String genre, int count) {
+        String prompt = String.format(
+                "Порекомендуй ровно %d лучших фильмов в жанре '%s'. " +
+                        "Формат для каждого: Название (Год, Режиссер) — краткое описание. " +
+                        "без вводных слов.",
+                count, genre);
+
         RecommendationRequest request = new RecommendationRequest();
         request.setMessages(List.of(
-                new RecommendationRequest.Message("user",
-                        "Порекомендуй фильмы в жанре: " + userPrompt + ". " +
-                                "Формат: Название (Год, Режиссер) — краткое описание.")
+                new RecommendationRequest.Message("user", prompt)
         ));
+        request.setMax_tokens(count * 100); // лимит
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + apiKey);
@@ -45,7 +50,11 @@ public class DeepSeekService {
                 new HttpEntity<>(request, headers),
                 RecommendationResponse.class
         );
-
-        return response.getBody().getChoices().get(0).getMessage().getContent();
+        // Обрабатываем ответ
+        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+            return response.getBody().getChoices().get(0).getMessage().getContent();
+        } else {
+            throw new RuntimeException("Ошибка при запросе к API. Код: " + response.getStatusCode());
+        }
     }
 }

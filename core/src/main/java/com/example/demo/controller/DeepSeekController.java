@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.serviсe.DeepSeekService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,7 @@ public class DeepSeekController {
     }
 
     @PostMapping("/recommend")
-    public String recommendMovies(@RequestParam String genrec) {
-        return deepSeekService.getMovieRecommendation(genrec);
+    public String getRecommendMovies(@RequestParam String genre, @RequestParam(defaultValue = "5") int count) {
+        return deepSeekService.getMovieRecommendations(genre, count);
     }
 }

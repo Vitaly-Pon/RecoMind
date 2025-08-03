@@ -8,10 +8,12 @@ import java.util.List;
 public class RecommendationRequest {
     private String model = "deepseek-chat";  // Модель по умолчанию
     private List<Message> messages;
+    private int n = 1; // Количество вариантов ответа???
+    private int max_tokens = 500; // Ограничение длины ответа
 
     @Data
     public static class Message {
-        private String role;  // "user", "system", "assistant"
+        private String role;
         private String content;
 
         public Message(String role, String content) {
