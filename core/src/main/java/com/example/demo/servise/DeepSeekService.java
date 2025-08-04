@@ -1,5 +1,6 @@
-package com.example.demo.serviсe;
+package com.example.demo.servise;
 
+import com.example.demo.controller.dto.request.RecommendationMessage;
 import com.example.demo.controller.dto.request.RecommendationRequest;
 import com.example.demo.controller.dto.response.RecommendationResponse;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -36,7 +37,7 @@ public class DeepSeekService {
 
         RecommendationRequest request = new RecommendationRequest();
         request.setMessages(List.of(
-                new RecommendationRequest.Message("user", prompt)
+                new RecommendationMessage("user", prompt)
         ));
         request.setMax_tokens(count * 100); // лимит
 
@@ -50,7 +51,7 @@ public class DeepSeekService {
                 new HttpEntity<>(request, headers),
                 RecommendationResponse.class
         );
-        // Обрабатываем ответ
+
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
             return response.getBody().getChoices().get(0).getMessage().getContent();
         } else {

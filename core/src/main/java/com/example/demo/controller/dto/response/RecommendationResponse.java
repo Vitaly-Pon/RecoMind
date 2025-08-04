@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class RecommendationResponse {
     private String id;
-    private List<Choice> choices;
+    private List<RecommendationChoice> choices;
 
     @Data
     public static class Choice {

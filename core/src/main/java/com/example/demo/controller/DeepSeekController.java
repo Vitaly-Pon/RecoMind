@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.serviсe.DeepSeekService;
+import com.example.demo.servise.DeepSeekService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
