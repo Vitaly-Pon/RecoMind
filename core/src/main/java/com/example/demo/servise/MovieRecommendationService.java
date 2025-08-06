@@ -1,9 +1,9 @@
 package com.example.demo.servise;
 
-import com.example.demo.PromptTemplates;
+import com.example.demo.util.PromptTemplates;
 import com.example.demo.client.DeepSeekApiClient;
 import com.example.demo.controller.dto.request.ChatMessageRequest;
-import com.example.demo.controller.dto.request.DeepSeekChatRequest;
+import com.example.demo.client.dto.DeepSeekChatRequest;
 import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
 import org.springframework.stereotype.Service;
 
