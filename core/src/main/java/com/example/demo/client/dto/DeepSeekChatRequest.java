@@ -1,5 +1,6 @@
-package com.example.demo.controller.dto.request;
+package com.example.demo.client.dto;
 
+import com.example.demo.controller.dto.request.ChatMessageRequest;
 import lombok.Data;
 
 import java.util.List;

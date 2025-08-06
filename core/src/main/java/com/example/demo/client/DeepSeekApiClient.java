@@ -1,8 +1,8 @@
 package com.example.demo.client;
 
-import com.example.demo.DeepSeekConfig;
-import com.example.demo.controller.dto.request.DeepSeekChatRequest;
-import com.example.demo.controller.dto.response.DeepSeekChatResponse;
+import com.example.demo.config.DeepSeekConfig;
+import com.example.demo.client.dto.DeepSeekChatRequest;
+import com.example.demo.client.dto.DeepSeekChatResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;

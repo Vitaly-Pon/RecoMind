@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.util;
 
 public class PromptTemplates {
     public static String movieRecommendationPrompt(String genre, int count){
