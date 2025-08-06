@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class RecommendationChoice {
-    private RecommendationMessage message;
+    private ChatMessageResponse message;
     private String finish_reason;
 }

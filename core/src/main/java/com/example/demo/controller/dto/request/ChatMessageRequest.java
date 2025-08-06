@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class RecommendationMessage {
+public class ChatMessageRequest {
     private String role;
     private String content;
 }

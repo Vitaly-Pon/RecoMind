@@ -52,13 +52,6 @@
       <version>1.18.38</version>
     </dependency>
 
-    <!-- Dotenv -->
-    <dependency>
-      <groupId>io.github.cdimascio</groupId>
-      <artifactId>dotenv-java</artifactId>
-      <version>${dotenv-java.version}</version>
-    </dependency>
-
     <!-- Spring Dotenv -->
     <dependency>
       <groupId>me.paulschwarz</groupId>
