@@ -1,4 +1,4 @@
-package com.example.demo.servise;
+package com.example.demo.service;
 
 import com.example.demo.util.PromptTemplates;
 import com.example.demo.client.DeepSeekApiClient;
@@ -25,9 +25,12 @@ public class MovieRecommendationService {
         request.setMax_tokens(count * 100);
 
         var apiResponse = apiClient.getRecommendations(request);
+        String content = apiResponse.getChoices().get(0).getMessage().getContent();
 
-        var response = new MovieRecommendationsResponse();
-        response.setContent(apiResponse.getChoices().get(0).getMessage().getContent());
+        List<String> recommendations = List.of(content.split("\\n\\n"));
+
+        MovieRecommendationsResponse response = new MovieRecommendationsResponse();
+        response.setRecommendations(recommendations);
         return response;
     }
 }

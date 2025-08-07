@@ -3,6 +3,7 @@ package com.example.demo.client;
 import com.example.demo.config.DeepSeekConfig;
 import com.example.demo.client.dto.DeepSeekChatRequest;
 import com.example.demo.client.dto.DeepSeekChatResponse;
+import com.example.demo.exception.DeepSeekApiException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -35,10 +36,11 @@ public class DeepSeekApiClient {
                 new HttpEntity<>(request, headers),
                 DeepSeekChatResponse.class
         );
-        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+        if(response.getStatusCode() != HttpStatus.OK || response.getBody() == null){
+            throw new DeepSeekApiException("Ошибка в запросе к DeepSeek API. Код ошибки: " + response.getStatusCode());
+        }else {
             return response.getBody();
-        } else{
-            throw new RuntimeException("Ошибка при запросе к API. Код: " + response.getStatusCode());
         }
+
     }
 }
