@@ -1,4 +1,4 @@
-package com.example.demo.servise;
+package com.example.demo.service;
 
 import com.example.demo.util.PromptTemplates;
 import com.example.demo.client.DeepSeekApiClient;
