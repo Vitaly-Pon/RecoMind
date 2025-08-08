@@ -7,4 +7,11 @@ public class PromptTemplates {
                 "Формат для каждого: Название (Год, Режиссер) — краткое описание. " +
                 "Без вводных слов.", count, genre);
     }
+
+    public static String movieRecommendationOnEmotionPrompt(String emotion, int count){
+        return String.format(
+                "Порекомендуй ровно %d лучших фильмов с настроением '%s'. " +
+                        "Формат для каждого: Название (Год, Режиссер) — краткое описание. " +
+                        "Без вводных слов.", count, emotion);
+    }
 }
