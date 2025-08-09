@@ -1,8 +1,8 @@
-package com.example.demo.client;
+package com.example.demo.deepseek;
 
 import com.example.demo.config.DeepSeekConfig;
-import com.example.demo.client.dto.DeepSeekChatRequest;
-import com.example.demo.client.dto.DeepSeekChatResponse;
+import com.example.demo.deepseek.dto.DeepSeekChatRequest;
+import com.example.demo.deepseek.dto.DeepSeekChatResponse;
 import com.example.demo.exception.DeepSeekApiException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
