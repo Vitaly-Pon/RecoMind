@@ -46,8 +46,11 @@ public class MovieRecommendationServiceImpTest {
 
         MovieRecommendationsResponse responseResult = service.getMovieRecommendations("Комедия",2);
 
-        assertThat(responseResult.getRecommendations()).containsExactly("Фильм 1", "Фильм 2");
+        assertThat(responseResult.getRecommendations()).containsExactly("Фильм 1\nФильм 2");
 
         verify(apiClient, times(1)).getRecommendations(any());
     }
+
+    @Test
+    void
 }

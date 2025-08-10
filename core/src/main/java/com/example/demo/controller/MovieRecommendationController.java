@@ -4,7 +4,6 @@ import com.example.demo.controller.dto.request.MovieRecByEmotionRequest;
 import com.example.demo.controller.dto.request.MovieRecommendationRequest;
 import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
 import com.example.demo.service.MovieRecommendationService;
-import com.example.demo.service.MovieRecommendationServiceImp;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
