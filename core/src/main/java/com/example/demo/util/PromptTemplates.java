@@ -1,18 +1,22 @@
 package com.example.demo.util;
 
 public class PromptTemplates {
-    //TODO плохая работа со строками
-    public static String movieRecommendationPrompt(String genre, int count){
-        return String.format(
-                "Порекомендуй ровно %d лучших фильмов в жанре '%s'. " +
-                "Формат для каждого: Название (Год, Режиссер) — краткое описание. " +
-                "Без вводных слов.", count, genre);
+
+    private static final String GENRE_TEMPLATE =
+            "Порекомендуй ровно %d лучших фильмов в жанре '%s'. " +
+            "Формат: Название (Год, режиссер) — описание. Без вводных слов.";
+
+    private static final String EMOTION_TEMPLATE =
+            "Порекомендуй ровно %d фильмов с настроением '%s'. " +
+                    "Формат: Название (Год, режиссер) — описание. Без вводных слов.";
+
+    private PromptTemplates() {}
+
+    public static  String generateGenrePrompt(String genre, int count){
+        return String.format(GENRE_TEMPLATE, count, genre);
     }
 
-    public static String movieRecommendationOnEmotionPrompt(String emotion, int count){
-        return String.format(
-                "Порекомендуй ровно %d лучших фильмов с настроением '%s'. " +
-                        "Формат для каждого: Название (Год, Режиссер) — краткое описание. " +
-                        "Без вводных слов.", count, emotion);
+    public static String generateEmotionPrompt(String emotion, int count){
+        return String.format(EMOTION_TEMPLATE, count, emotion);
     }
 }
