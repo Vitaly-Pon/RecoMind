@@ -1,4 +1,4 @@
-package com.example.demo.deepseek.dto;
+package com.example.demo.client.dto;
 
 import lombok.Data;
 

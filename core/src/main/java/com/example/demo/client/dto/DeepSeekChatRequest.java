@@ -1,4 +1,4 @@
-package com.example.demo.deepseek.dto;
+package com.example.demo.client.dto;
 
 import com.example.demo.controller.dto.request.ChatMessageRequest;
 import lombok.Data;
@@ -10,6 +10,6 @@ import java.util.List;
 public class DeepSeekChatRequest {
     private String model = "deepseek-chat";  // Модель по умолчанию
     private List<ChatMessageRequest> messages;
-    private int maxTokens = 500; // Ограничение длины ответа
+    private int max_tokens = 500; // Ограничение длины ответа
 
 }
