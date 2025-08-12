@@ -35,7 +35,12 @@ public class MovieRecommendationServiceImp implements MovieRecommendationService
         DeepSeekChatResponse apiResponse = deepSeekClient.getRecommendations(request);
         String content = apiResponse.getChoices().get(0).getMessage().getContent();
 
-        List<String> recommendations = List.of(content.split("\\n\\n"));
+        List<String> recommendations = List.of(content.split("\\n{1,2}")).stream()
+                .map(s -> s.replaceAll("\\*\\*", ""))  // убираем Markdown-звёздочки **
+                .map(s -> s.replaceAll("\"", "")) // убирает кавычки
+                .map(String::trim)                     // убираем лишние пробелы в начале и конце
+                .filter(s -> !s.isEmpty())             // убираем пустые строки
+                .toList();
 
         MovieRecommendationsResponse response = new MovieRecommendationsResponse();
         response.setRecommendations(recommendations);

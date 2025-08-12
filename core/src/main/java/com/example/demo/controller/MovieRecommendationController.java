@@ -21,11 +21,11 @@ public class MovieRecommendationController {
 
     @PostMapping("/recommendInGenre")
     public MovieRecommendationsResponse getRecommendMoviesInGenre(@Valid @RequestBody MovieRecommendationRequest request) {
-        return movieRecommendationService.getMovieRecommendations(request.getGenre(), request.getCount());
+        return movieRecommendationService.getMovieRecommendations(request.getGenre(), request.getCountOrDefault());
     }
 
     @PostMapping("/recommendBasedOnEmotion")
     public MovieRecommendationsResponse getRecMoviesBasedOnEmotion(@Valid @RequestBody MovieRecByEmotionRequest request){
-        return movieRecommendationService.getMovieRecommendationsOnEmotion(request.getEmotion(), request.getCount());
+        return movieRecommendationService.getMovieRecommendationsOnEmotion(request.getEmotion(), request.getCountOrDefault());
     }
 }
