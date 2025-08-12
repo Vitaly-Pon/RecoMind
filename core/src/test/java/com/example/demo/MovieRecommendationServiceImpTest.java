@@ -5,7 +5,7 @@ import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
 import com.example.demo.deepseek.DeepSeekApiClient;
 import com.example.demo.deepseek.dto.DeepSeekChatResponse;
 import com.example.demo.deepseek.dto.RecommendationChoice;
-import com.example.demo.service.MovieRecommendationService;
+import com.example.demo.service.MovieRecommendationServiceImp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,13 +21,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class MovieRecommendationServiceTest {
+public class MovieRecommendationServiceImpTest {
 
     @MockitoBean
     private DeepSeekApiClient apiClient;
 
     @Autowired
-    private MovieRecommendationService service;
+    private MovieRecommendationServiceImp service;
 
     @Test
     void shouldReturnRecommendation(){
