@@ -51,4 +51,6 @@ public class MovieRecommendationServiceImpTest {
         verify(apiClient, times(1)).getRecommendations(any());
     }
 
+    @Test
+    void
 }
