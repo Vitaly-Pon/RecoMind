@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.List;
 
+//Сообщение пользователя к ии
 @Data
 public class DeepSeekChatRequest {
     private String model = "deepseek-chat";  // Модель по умолчанию
