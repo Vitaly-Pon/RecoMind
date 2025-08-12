@@ -1,20 +1,20 @@
 package com.example.demo.service;
 
-import com.example.demo.client.dto.DeepSeekChatResponse;
+import com.example.demo.deepseek.dto.DeepSeekChatResponse;
 import com.example.demo.util.PromptTemplates;
-import com.example.demo.client.DeepSeekApiClient;
+import com.example.demo.deepseek.DeepSeekApiClient;
 import com.example.demo.controller.dto.request.ChatMessageRequest;
-import com.example.demo.client.dto.DeepSeekChatRequest;
+import com.example.demo.deepseek.dto.DeepSeekChatRequest;
 import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class MovieRecommendationService {
-    private final DeepSeekApiClient apiClient;
+    private final DeepSeekApiClient deepSeekClient;
 
-    public MovieRecommendationService(DeepSeekApiClient apiClient) {
-        this.apiClient = apiClient;
+    public MovieRecommendationService(DeepSeekApiClient deepSeekClient) {
+        this.deepSeekClient = deepSeekClient;
     }
 
     public MovieRecommendationsResponse getMovieRecommendations(String genre, int count) {
@@ -22,9 +22,9 @@ public class MovieRecommendationService {
 
         DeepSeekChatRequest request = new DeepSeekChatRequest();
         request.setMessages(List.of(new ChatMessageRequest("user", prompt)));
-        request.setMax_tokens(count * 100);
+        request.setMaxTokens(count * 100);
 
-        DeepSeekChatResponse apiResponse = apiClient.getRecommendations(request);
+        DeepSeekChatResponse apiResponse = deepSeekClient.getRecommendations(request);
         String content = apiResponse.getChoices().get(0).getMessage().getContent();
 
         List<String> recommendations = List.of(content.split("\\n\\n"));
@@ -39,9 +39,9 @@ public class MovieRecommendationService {
 
         DeepSeekChatRequest request = new DeepSeekChatRequest();
         request.setMessages(List.of(new ChatMessageRequest("user", prompt)));
-        request.setMax_tokens(count * 100);
+        request.setMaxTokens(count * 100);
 
-        DeepSeekChatResponse apiResponse = apiClient.getRecommendations(request);
+        DeepSeekChatResponse apiResponse = deepSeekClient.getRecommendations(request);
         String content = apiResponse.getChoices().get(0).getMessage().getContent();
 
         List<String> recommendations = List.of(content.split("\\n\\n"));
