@@ -1,11 +1,10 @@
 package com.example.demo.deepseek;
 
 import com.example.demo.config.DeepSeekConfig;
-import com.example.demo.controller.dto.request.ChatMessageRequest;
+import com.example.demo.deepseek.dto.ChatMessageRequest;
 import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
 import com.example.demo.deepseek.dto.DeepSeekChatRequest;
 import com.example.demo.deepseek.dto.DeepSeekChatResponse;
-import com.example.demo.deepseek.dto.DeepSeekResponseFormat;
 import com.example.demo.exception.DeepSeekApiException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;

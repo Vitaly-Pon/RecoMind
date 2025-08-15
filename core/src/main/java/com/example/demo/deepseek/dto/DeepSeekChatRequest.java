@@ -1,6 +1,6 @@
 package com.example.demo.deepseek.dto;
 
-import com.example.demo.controller.dto.request.ChatMessageRequest;
+import com.example.demo.deepseek.DeepSeekResponseFormat;
 import lombok.Data;
 
 import java.util.List;

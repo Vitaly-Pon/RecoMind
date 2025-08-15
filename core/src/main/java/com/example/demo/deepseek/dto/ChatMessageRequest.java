@@ -1,4 +1,4 @@
-package com.example.demo.controller.dto.request;
+package com.example.demo.deepseek.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
