@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class MovieRecommendationRequest extends BaseMovieRequest{
-    @NotBlank(message = "Жанр не должен быть пустым")
-    private String genre;
+public class MovieRecByEmotionRequest extends BaseMovieRequest{
+    @NotBlank(message = "Поле не должно быть пустым")
+    private String emotion;
 }
