@@ -10,4 +10,5 @@ import org.springframework.stereotype.Component;
 public class DeepSeekConfig {
     private String key;
     private String url;
+    int maxAllowedTokens = 1200;
 }

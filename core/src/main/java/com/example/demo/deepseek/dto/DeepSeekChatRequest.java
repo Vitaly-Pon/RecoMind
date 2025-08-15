@@ -11,5 +11,6 @@ public class DeepSeekChatRequest {
     private String model = "deepseek-chat";  // Модель по умолчанию
     private List<ChatMessageRequest> messages;
     private int maxTokens = 500; // Ограничение длины ответа
+    private DeepSeekResponseFormat responseFormat; // формат для api (JSON)
 
 }

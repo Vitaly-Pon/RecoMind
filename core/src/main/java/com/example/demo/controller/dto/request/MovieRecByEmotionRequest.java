@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class MovieRecByEmotionRequest extends  BaseMovieRequest{
+public class MovieRecByEmotionRequest extends BaseMovieRequest{
     @NotBlank(message = "Поле не должно быть пустым")
     private String emotion;
 }
