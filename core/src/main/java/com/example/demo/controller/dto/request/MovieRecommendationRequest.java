@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class MovieRecommendationRequest extends BaseMovieRequest{
     @NotBlank(message = "Жанр не должен быть пустым")

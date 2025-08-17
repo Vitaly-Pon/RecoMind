@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.util.MovieFormatter;
 import com.example.demo.util.PromptTemplates;
 import com.example.demo.deepseek.DeepSeekApiClient;
 import com.example.demo.controller.dto.response.MovieRecommendationsResponse;

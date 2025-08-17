@@ -10,10 +10,6 @@ public abstract class BaseMovieRequest {
 
     @Min(value = 1, message = "Минимум один фильм")
     @Max(value = 10, message = "Максимум десять фильмов")
-    @NotNull
     private Integer count = 5;
 
-    public int getCountOrDefault() {
-        return count != null ? count : 5;
-    }
 }

@@ -7,12 +7,17 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RequestMapping("/api/movies")
+@RequestMapping("/movies")
 public interface MovieRecommendationController {
-    @PostMapping("/recommendInGenre")
-    MovieRecommendationsResponse getRecommendMoviesInGenre(@Valid @RequestBody MovieRecommendationRequest request);
 
-    @PostMapping("/recommendBasedOnEmotion")
-    MovieRecommendationsResponse getRecMoviesBasedOnEmotion(@Valid @RequestBody MovieRecByEmotionRequest request);
+    @PostMapping("/genre")
+    Object getRecommendMoviesInGenre(@Valid @RequestBody MovieRecommendationRequest request,
+                                     @RequestParam(defaultValue = "json") String format);
+
+    @PostMapping("/emotion")
+    Object getRecMoviesBasedOnEmotion(@Valid @RequestBody MovieRecByEmotionRequest request,
+                                      @RequestParam(defaultValue = "json") String format);
 }
+
