@@ -10,17 +10,26 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class MovieRecommendationServiceImp implements MovieRecommendationService {
-    private final DeepSeekApiClient deepSeekClient;
+
+    private final DeepSeekApiClient client;
+    private final MovieFormatter formatter;
 
     @Override
-    public MovieRecommendationsResponse getMovieRecommendations(String genre, int count) {
-        String prompt = PromptTemplates.generateGenrePrompt(genre, count);
-        return deepSeekClient.getRecommendations(prompt, count);
+    public Object getMovieRecommendations(String genre, int count, String format) {
+        var response = client.getRecommendations(PromptTemplates.generateGenrePrompt(genre, count), count);
+        return formatResponse(response, format);
     }
 
     @Override
-    public MovieRecommendationsResponse getMovieRecommendationsOnEmotion(String emotion, int count){
-        String prompt = PromptTemplates.generateEmotionPrompt(emotion, count);
-        return deepSeekClient.getRecommendations(prompt, count);
+    public Object getMovieRecommendationsOnEmotion(String emotion, int count, String format) {
+        var response = client.getRecommendations(PromptTemplates.generateEmotionPrompt(emotion, count), count);
+        return formatResponse(response, format);
+    }
+
+    private Object formatResponse(MovieRecommendationsResponse response, String format) {
+        if ("text".equalsIgnoreCase(format)) {
+            return String.join("\n", formatter.formatMovies(response.getMovies()));
+        }
+        return response;
     }
 }

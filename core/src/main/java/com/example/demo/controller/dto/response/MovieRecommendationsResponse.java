@@ -9,5 +9,5 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class MovieRecommendationsResponse {
-    private List<MovieInfo> movie;
+    private List<MovieInfo> movies;
 }

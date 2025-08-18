@@ -1,9 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
 
 public interface MovieRecommendationService {
-    MovieRecommendationsResponse getMovieRecommendations(String genre, int count);
-    MovieRecommendationsResponse getMovieRecommendationsOnEmotion(String emotion, int count);
-
+    Object getMovieRecommendations(String genre, int count, String format);
+    Object getMovieRecommendationsOnEmotion(String emotion, int count, String format);
 }
