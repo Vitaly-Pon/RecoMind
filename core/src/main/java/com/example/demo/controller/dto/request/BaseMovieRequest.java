@@ -9,5 +9,5 @@ public abstract class BaseMovieRequest {
 
     @Min(value = 1, message = "Минимум один фильм")
     @Max(value = 10, message = "Максимум десять фильмов")
-    private Integer count = 5; //TODO разобраться с дефолтным значением
+    private Integer count = 5;
 }
