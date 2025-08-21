@@ -6,7 +6,6 @@ import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
 import com.example.demo.deepseek.dto.DeepSeekChatRequest;
 import com.example.demo.deepseek.dto.DeepSeekChatResponse;
 import com.example.demo.exception.DeepSeekApiException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpEntity;
@@ -26,7 +25,6 @@ public class DeepSeekApiClient {
 
     private final DeepSeekConfig config;
     private final RestTemplate restTemplate;
-    private final ObjectMapper mapper;
     private final MovieResponseParser parser;
 
     public MovieRecommendationsResponse getRecommendations(String prompt, int count) {
