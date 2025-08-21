@@ -13,6 +13,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpHeaders;
@@ -29,8 +30,8 @@ public class DeepSeekApiClient {
     private final MovieResponseParser parser;
 
     public MovieRecommendationsResponse getRecommendations(String prompt, int count) {
-        var request = buildRequest(prompt, count);
-        var rawResponse = send(request);
+        DeepSeekChatRequest request = buildRequest(prompt, count);
+        String rawResponse = send(request);
         return parser.parse(rawResponse);
     }
 
@@ -39,32 +40,32 @@ public class DeepSeekApiClient {
         return DeepSeekChatRequest.builder()
                 .messages(List.of(new ChatMessageRequest("user", prompt)))
                 .maxTokens(maxTokens)
-                .responseFormat(new DeepSeekResponseFormat("json_object"))
                 .build();
     }
 
     @SneakyThrows
     private String send(DeepSeekChatRequest request) {
-        var headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(config.getKey());
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        var response = restTemplate.exchange(
+        ResponseEntity<DeepSeekChatResponse> responseEntity = restTemplate.exchange(
                 config.getUrl(),
                 HttpMethod.POST,
                 new HttpEntity<>(request, headers),
-                String.class
+                DeepSeekChatResponse.class
         );
 
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
-            throw new DeepSeekApiException("Ошибка запроса: " + response.getStatusCode());
+        if (!responseEntity.getStatusCode().is2xxSuccessful() || responseEntity.getBody() == null) {
+            throw new DeepSeekApiException("Ошибка запроса: " + responseEntity.getStatusCode());
         }
 
-        var dto = mapper.readValue(response.getBody(), DeepSeekChatResponse.class);
-        if (dto.getChoices() == null || dto.getChoices().isEmpty()) {
+        DeepSeekChatResponse deepSeekChatResponse = responseEntity.getBody();
+
+        if (deepSeekChatResponse.getChoices() == null || deepSeekChatResponse.getChoices().isEmpty()) {
             throw new DeepSeekApiException("Невалидный ответ от API");
         }
 
-        return dto.getChoices().get(0).getMessage().getContent();
+        return deepSeekChatResponse.getChoices().get(0).getMessage().getContent();
     }
 }

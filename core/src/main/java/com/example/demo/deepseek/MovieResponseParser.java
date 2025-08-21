@@ -14,7 +14,6 @@ public class MovieResponseParser {
 
     @SneakyThrows
     public MovieRecommendationsResponse parse(String content) {
-        // Убираем ```json ... ```
         String cleaned = content
                 .replaceAll("(?s)```json\\s*", "")
                 .replaceAll("(?s)```", "")
