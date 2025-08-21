@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class MovieRecommendationControllerImp implements MovieRecommendationController{
-// TODO удалить формат
     private final MovieRecommendationService service;
 
     public Object getRecommendMoviesInGenre(@Valid @RequestBody MovieRecommendationRequest request) {
