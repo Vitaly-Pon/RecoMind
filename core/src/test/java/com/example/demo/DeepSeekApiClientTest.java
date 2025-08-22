@@ -63,11 +63,9 @@ public class DeepSeekApiClientTest {
                 eq(DeepSeekChatResponse.class)
         )).thenReturn(responseEntity);
 
-        // Мок парсера
         MovieRecommendationsResponse mockParsed = new MovieRecommendationsResponse(List.of());
         when(parser.parse("Recommended Content")).thenReturn(mockParsed);
 
-        // Вызов метода
         MovieRecommendationsResponse result = apiClient.getRecommendations("Ужасы", 3);
 
         assertNotNull(result);

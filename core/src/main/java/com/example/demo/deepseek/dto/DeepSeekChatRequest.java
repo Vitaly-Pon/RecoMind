@@ -9,8 +9,7 @@ import java.util.List;
 @Data
 @Builder
 public class DeepSeekChatRequest {
-    @Builder.Default
-    private String model = "deepseek-chat";  // модель по умолчанию
+    private String model;
     private List<ChatMessageRequest> messages;
     private int maxTokens;
 }

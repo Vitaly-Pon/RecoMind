@@ -34,8 +34,10 @@ public class DeepSeekApiClient {
     }
 
     private DeepSeekChatRequest buildRequest(String prompt, int count) {
-        int maxTokens = Math.min(count * 100, config.getMaxAllowedTokens());
+        int maxTokens = Math.min(count * 100, config.getMaxTokens());
+
         return DeepSeekChatRequest.builder()
+                .model(config.getModel())
                 .messages(List.of(new ChatMessageRequest("user", prompt)))
                 .maxTokens(maxTokens)
                 .build();

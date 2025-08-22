@@ -41,7 +41,6 @@ public class MovieRecommendationControllerImpTest extends AbstractControllerTest
                 .andExpect(jsonPath("$.details.count", is("Минимум один фильм")));
     }
 
-
     @Test
     void shouldReturnRecommendationsWhenValidRequest() throws Exception {
         MovieRecommendationsResponse movieRecommendationsResponse = new MovieRecommendationsResponse(List.of(
@@ -117,7 +116,7 @@ public class MovieRecommendationControllerImpTest extends AbstractControllerTest
 
     @Test
     void shouldReturnServiceUnavailableWhenDeepSeekFails() throws Exception {
-        // Мокируем ошибку DeepSeek API (важно использовать anyString(), anyInt())
+
         when(deepSeekApiClient.getRecommendations(anyString(), anyInt()))
                 .thenThrow(new DeepSeekApiException("DeepSeek API недоступен"));
 
@@ -135,7 +134,6 @@ public class MovieRecommendationControllerImpTest extends AbstractControllerTest
                 .andExpect(jsonPath("$.path").value("/movies/genre"))
                 .andExpect(jsonPath("$.details").doesNotExist());
 
-        // Проверим, что мок точно вызвался
         verify(deepSeekApiClient, times(1)).getRecommendations(anyString(), anyInt());
     }
 }
