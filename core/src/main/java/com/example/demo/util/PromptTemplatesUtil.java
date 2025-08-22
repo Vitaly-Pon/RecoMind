@@ -10,7 +10,7 @@ public class PromptTemplatesUtil {
                     "\"kinopoisk_rating\": 8.15, " +
                     "\"description\": \"Описание\"}]}";
 
-    private static final String GENRE_TEMPLATE = "лучших в жанре %s. ";
+    private static final String GENRE_TEMPLATE = "хороших в жанре %s. ";
 
     private static final String EMOTION_TEMPLATE = " с настроением %s. ";
 

@@ -30,9 +30,6 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class DeepSeekApiClientTest {
 
-    @Autowired
-    private DeepSeekConfig config;
-
     @MockitoBean
     private RestTemplate restTemplate;
 

@@ -48,7 +48,7 @@ public class MovieRecommendationControllerImpTest extends AbstractControllerTest
                 new MovieInfo("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2"),
                 new MovieInfo("Фильм 3", 2022, "Режиссер 3", 8.0, 9.5, "Описание 3")));
 
-        when(service.getMovieRecommendations("Комедия", 3)).thenReturn(movieRecommendationsResponse);
+        when(service.getMovieRecommendations("Комедия", 3)).thenReturn(movieRecommendationsResponse); //TODO сервис не мокаем
 
        MovieRecommendationRequest request = new MovieRecommendationRequest();
        request.setGenre("Комедия");
@@ -69,7 +69,7 @@ public class MovieRecommendationControllerImpTest extends AbstractControllerTest
         verify(deepSeekApiClient, times(1)).getRecommendations(any(), anyInt());
     }
     @Test
-    void shouldFailValidationIfCountToo() throws Exception{
+    void shouldFailValidationIfCountMoreThanTen() throws Exception{
         MovieRecommendationRequest request = new MovieRecommendationRequest();
         request.setGenre("Ужасы");
         request.setCount(99);
@@ -83,8 +83,8 @@ public class MovieRecommendationControllerImpTest extends AbstractControllerTest
                 .andExpect(jsonPath("$.error", is("Bad Request")))
                 .andExpect(jsonPath("$.message", is("Проверка не пройдена")))
                 .andExpect(jsonPath("$.details.count", is("Максимум десять фильмов")));
-
     }
+
     @Test
     void shouldReturnDefaultValueWhenThereIsNoCountField() throws Exception {
         MovieRecommendationsResponse movieRecommendationsResponse = new MovieRecommendationsResponse(List.of(
@@ -94,7 +94,7 @@ public class MovieRecommendationControllerImpTest extends AbstractControllerTest
                 new MovieInfo("Фильм 4", 2023, "Режиссер 4", 6.0, 7.0, "Описание 4"),
                 new MovieInfo("Фильм 5", 2024, "Режиссер 5", 8.0, 9.5, "Описание 5")));
 
-        when(service.getMovieRecommendations("Ужасы", 5)).thenReturn(movieRecommendationsResponse);
+        when(service.getMovieRecommendations("Ужасы", 5)).thenReturn(movieRecommendationsResponse); //TODO не мокаем сервис
 
         MovieRecommendationRequest request = new MovieRecommendationRequest();
         request.setGenre("Ужасы");
