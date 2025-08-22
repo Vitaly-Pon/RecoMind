@@ -10,4 +10,6 @@ import org.springframework.stereotype.Component;
 public class DeepSeekConfig {
     private String key;
     private String url;
+    private Integer maxTokens;
+    private String model;
 }
