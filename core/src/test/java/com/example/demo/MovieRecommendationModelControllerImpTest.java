@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class MovieRecommendationControllerImpTest extends AbstractControllerTest {
+public class MovieRecommendationModelControllerImpTest extends AbstractControllerTest {
 
     @Test
     void shouldFailValidationIfGenreIsEmpty() throws Exception {

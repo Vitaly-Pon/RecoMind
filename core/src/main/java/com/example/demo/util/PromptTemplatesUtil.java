@@ -33,3 +33,6 @@ public class PromptTemplatesUtil {
         return String.format(BASE_TEMPLATE, count, emotionPhase);
     }
 }
+
+//TODO Регистрация пользователя и база данных
+//TODO в тестах не мокать сервис и добавить эмоции
