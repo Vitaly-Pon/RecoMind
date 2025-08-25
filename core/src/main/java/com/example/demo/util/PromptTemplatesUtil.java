@@ -33,3 +33,5 @@ public class PromptTemplatesUtil {
         return String.format(BASE_TEMPLATE, count, emotionPhase);
     }
 }
+
+//TODO  реализовать Регистрация пользователя и база данных
