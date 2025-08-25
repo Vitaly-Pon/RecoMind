@@ -1,12 +1,12 @@
 package com.example.demo.mapper;
 
-import com.example.demo.deepseek.MovieInfo;
+import com.example.demo.deepseek.DeepSeekMovieDto;
 import com.example.demo.entity.MovieRecommendationModel;
 
 import java.util.List;
 
 public class MovieMapper {
-    public static MovieRecommendationModel toDomain(MovieInfo info) {
+    public static MovieRecommendationModel toDomain(DeepSeekMovieDto info) {
         return new MovieRecommendationModel(
                 info.getTitle(),
                 info.getYear(),
@@ -16,7 +16,7 @@ public class MovieMapper {
                 info.getDescription()
         );
     }
-    public static List<MovieRecommendationModel> toDomainList(List<MovieInfo> infos) {
+    public static List<MovieRecommendationModel> toDomainList(List<DeepSeekMovieDto> infos) {
         return infos.stream()
                 .map(MovieMapper::toDomain)
                 .toList();

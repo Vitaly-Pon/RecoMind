@@ -26,12 +26,12 @@ public class DeepSeekApiClient {
 
     private final DeepSeekConfig config;
     private final RestTemplate restTemplate;
-    private final MovieResponseParser parser;
+    private final DeepSeekResponseParser parser;
 
     public List<MovieRecommendationModel> getRecommendations(String prompt, int count) {
         DeepSeekChatRequest request = buildRequest(prompt, count);
         String rawResponse = send(request);
-        List<MovieInfo> infos = parser.parse(rawResponse);
+        List<DeepSeekMovieDto> infos = parser.parse(rawResponse);
         List<MovieRecommendationModel> domainMovies = MovieMapper.toDomainList(infos);
         return domainMovies;
 

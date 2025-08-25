@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
+import com.example.demo.controller.dto.response.MovieRecommendationResponse;
 import com.example.demo.entity.MovieRecommendationModel;
 import com.example.demo.util.PromptTemplatesUtil;
 import com.example.demo.deepseek.DeepSeekApiClient;
@@ -16,14 +16,14 @@ public class MovieRecommendationServiceImp implements MovieRecommendationService
     private final DeepSeekApiClient client;
 
     @Override
-    public MovieRecommendationsResponse getMovieRecommendations(String genre, int count) {
+    public MovieRecommendationResponse getMovieRecommendations(String genre, int count) {
         List<MovieRecommendationModel> movies = client.getRecommendations(PromptTemplatesUtil.generateGenrePrompt(genre, count), count);
-        return MovieRecommendationsResponse.fromDomainList(movies);
+        return MovieRecommendationResponse.fromDomainList(movies);
     }
 
     @Override
-    public MovieRecommendationsResponse getMovieRecommendationsOnEmotion(String emotion, int count) {
+    public MovieRecommendationResponse getMovieRecommendationsOnEmotion(String emotion, int count) {
         List<MovieRecommendationModel> movies = client.getRecommendations(PromptTemplatesUtil.generateEmotionPrompt(emotion, count), count);
-        return MovieRecommendationsResponse.fromDomainList(movies);
+        return MovieRecommendationResponse.fromDomainList(movies);
     }
 }

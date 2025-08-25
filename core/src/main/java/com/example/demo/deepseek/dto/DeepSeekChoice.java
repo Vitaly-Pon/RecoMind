@@ -4,7 +4,7 @@ import com.example.demo.controller.dto.response.ChatMessageResponse;
 import lombok.Data;
 
 @Data
-public class RecommendationChoice {
+public class DeepSeekChoice {
     private ChatMessageResponse message;
     private String finish_reason;
 }

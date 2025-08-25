@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class DeepSeekChatResponse {
     private String id;
-    private List<RecommendationChoice> choices;
+    private List<DeepSeekChoice> choices;
 }

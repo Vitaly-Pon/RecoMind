@@ -2,7 +2,7 @@ package com.example.demo;
 
 import com.example.demo.controller.dto.request.MovieRecByEmotionRequest;
 import com.example.demo.controller.dto.request.MovieRecommendationRequest;
-import com.example.demo.deepseek.MovieInfo;;
+import com.example.demo.deepseek.DeepSeekMovieDto;;
 import com.example.demo.exception.DeepSeekApiException;
 import com.example.demo.mapper.MovieMapper;
 import org.junit.jupiter.api.Test;
@@ -40,10 +40,10 @@ public class MovieRecommendationModelControllerImpTest extends AbstractControlle
     @Test
     void shouldReturnRecommendationsWhenDeepSeekReturnsData() throws Exception {
         // Мокаем DeepSeekApiClient
-        List<MovieInfo> mockMovies = List.of(
-                new MovieInfo("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
-                new MovieInfo("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2"),
-                new MovieInfo("Фильм 3", 2022, "Режиссер 3", 8.0, 9.5, "Описание 3")
+        List<DeepSeekMovieDto> mockMovies = List.of(
+                new DeepSeekMovieDto("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
+                new DeepSeekMovieDto("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2"),
+                new DeepSeekMovieDto("Фильм 3", 2022, "Режиссер 3", 8.0, 9.5, "Описание 3")
         );
         when(deepSeekApiClient.getRecommendations(anyString(), anyInt()))
                 .thenReturn(mockMovies.stream().map(MovieMapper::toDomain).toList());
@@ -65,12 +65,12 @@ public class MovieRecommendationModelControllerImpTest extends AbstractControlle
 
     @Test
     void shouldReturnDefaultCountWhenMissing() throws Exception {
-        List<MovieInfo> mockMovies = List.of(
-                new MovieInfo("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
-                new MovieInfo("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2"),
-                new MovieInfo("Фильм 3", 2022, "Режиссер 3", 8.0, 9.5, "Описание 3"),
-                new MovieInfo("Фильм 4", 2019, "Режиссер 4", 7.0, 8.0, "Описание 4"),
-                new MovieInfo("Фильм 5", 2021, "Режиссер 5", 6.5, 7.5, "Описание 5")
+        List<DeepSeekMovieDto> mockMovies = List.of(
+                new DeepSeekMovieDto("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
+                new DeepSeekMovieDto("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2"),
+                new DeepSeekMovieDto("Фильм 3", 2022, "Режиссер 3", 8.0, 9.5, "Описание 3"),
+                new DeepSeekMovieDto("Фильм 4", 2019, "Режиссер 4", 7.0, 8.0, "Описание 4"),
+                new DeepSeekMovieDto("Фильм 5", 2021, "Режиссер 5", 6.5, 7.5, "Описание 5")
         );
         when(deepSeekApiClient.getRecommendations(anyString(), anyInt()))
                 .thenReturn(mockMovies.stream().map(MovieMapper::toDomain).toList());
@@ -139,10 +139,10 @@ public class MovieRecommendationModelControllerImpTest extends AbstractControlle
     }
     @Test
     void shouldReturnRecommendationsForEmotion() throws Exception {
-        List<MovieInfo> mockMovies = List.of(
-                new MovieInfo("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
-                new MovieInfo("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2"),
-                new MovieInfo("Фильм 3", 2022, "Режиссер 3", 8.0, 9.5, "Описание 3")
+        List<DeepSeekMovieDto> mockMovies = List.of(
+                new DeepSeekMovieDto("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
+                new DeepSeekMovieDto("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2"),
+                new DeepSeekMovieDto("Фильм 3", 2022, "Режиссер 3", 8.0, 9.5, "Описание 3")
         );
         when(deepSeekApiClient.getRecommendations(anyString(), anyInt()))
                 .thenReturn(mockMovies.stream().map(MovieMapper::toDomain).toList());
@@ -163,12 +163,12 @@ public class MovieRecommendationModelControllerImpTest extends AbstractControlle
     }
     @Test
     void shouldReturnDefaultCountForEmotionWhenMissing() throws Exception {
-        List<MovieInfo> mockMovies = List.of(
-                new MovieInfo("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
-                new MovieInfo("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2"),
-                new MovieInfo("Фильм 3", 2022, "Режиссер 3", 8.0, 9.5, "Описание 3"),
-                new MovieInfo("Фильм 4", 2019, "Режиссер 4", 7.0, 8.0, "Описание 4"),
-                new MovieInfo("Фильм 5", 2021, "Режиссер 5", 6.5, 7.5, "Описание 5")
+        List<DeepSeekMovieDto> mockMovies = List.of(
+                new DeepSeekMovieDto("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
+                new DeepSeekMovieDto("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2"),
+                new DeepSeekMovieDto("Фильм 3", 2022, "Режиссер 3", 8.0, 9.5, "Описание 3"),
+                new DeepSeekMovieDto("Фильм 4", 2019, "Режиссер 4", 7.0, 8.0, "Описание 4"),
+                new DeepSeekMovieDto("Фильм 5", 2021, "Режиссер 5", 6.5, 7.5, "Описание 5")
         );
         when(deepSeekApiClient.getRecommendations(anyString(), anyInt()))
                 .thenReturn(mockMovies.stream().map(MovieMapper::toDomain).toList());

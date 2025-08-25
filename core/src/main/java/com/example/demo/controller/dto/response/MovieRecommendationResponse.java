@@ -8,10 +8,10 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class MovieRecommendationsResponse {
+public class MovieRecommendationResponse {
     private List<MovieRecommendationModel> movies;
 
-    public static MovieRecommendationsResponse fromDomainList(List<MovieRecommendationModel> domainMovies) {
-        return new MovieRecommendationsResponse(domainMovies);
+    public static MovieRecommendationResponse fromDomainList(List<MovieRecommendationModel> domainMovies) {
+        return new MovieRecommendationResponse(domainMovies);
     }
 }

@@ -2,10 +2,10 @@ package com.example.demo;
 
 import com.example.demo.controller.dto.response.ChatMessageResponse;
 import com.example.demo.deepseek.DeepSeekApiClient;
-import com.example.demo.deepseek.MovieInfo;
-import com.example.demo.deepseek.MovieResponseParser;
+import com.example.demo.deepseek.DeepSeekMovieDto;
+import com.example.demo.deepseek.DeepSeekResponseParser;
 import com.example.demo.deepseek.dto.DeepSeekChatResponse;
-import com.example.demo.deepseek.dto.RecommendationChoice;
+import com.example.demo.deepseek.dto.DeepSeekChoice;
 import com.example.demo.entity.MovieRecommendationModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class DeepSeekApiClientTest {
     private RestTemplate restTemplate;
 
     @MockitoBean
-    private MovieResponseParser parser;
+    private DeepSeekResponseParser parser;
 
     @Autowired
     private DeepSeekApiClient apiClient;
@@ -43,7 +43,7 @@ public class DeepSeekApiClientTest {
     void shouldReturnParsedMoviesWhenApiReturnsValidResponse() {
         // Мок ответа от RestTemplate
         DeepSeekChatResponse chatResponse = new DeepSeekChatResponse();
-        RecommendationChoice choice = new RecommendationChoice();
+        DeepSeekChoice choice = new DeepSeekChoice();
         ChatMessageResponse message = new ChatMessageResponse();
         message.setContent("Recommended Content");
         choice.setMessage(message);
@@ -60,9 +60,9 @@ public class DeepSeekApiClientTest {
         )).thenReturn(responseEntity);
 
         // Мок парсера — возвращаем список MovieInfo
-        List<MovieInfo> mockParsedList = List.of(
-                new MovieInfo("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
-                new MovieInfo("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2")
+        List<DeepSeekMovieDto> mockParsedList = List.of(
+                new DeepSeekMovieDto("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
+                new DeepSeekMovieDto("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2")
         );
         when(parser.parse("Recommended Content")).thenReturn(mockParsedList);
 

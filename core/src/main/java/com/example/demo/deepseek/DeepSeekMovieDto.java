@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MovieInfo {
+public class DeepSeekMovieDto {
     @JsonProperty("title")
     private String title;
 
