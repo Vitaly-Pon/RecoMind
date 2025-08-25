@@ -32,8 +32,7 @@ public class DeepSeekApiClient {
         DeepSeekChatRequest request = buildRequest(prompt, count);
         String rawResponse = send(request);
         List<DeepSeekMovieDto> infos = parser.parse(rawResponse);
-        List<MovieRecommendationModel> domainMovies = MovieMapper.toDomainList(infos);
-        return domainMovies;
+        return MovieMapper.toDomainList(infos);
 
     }
 

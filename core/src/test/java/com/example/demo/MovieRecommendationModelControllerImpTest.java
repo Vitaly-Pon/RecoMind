@@ -2,7 +2,7 @@ package com.example.demo;
 
 import com.example.demo.controller.dto.request.MovieRecByEmotionRequest;
 import com.example.demo.controller.dto.request.MovieRecommendationRequest;
-import com.example.demo.deepseek.DeepSeekMovieDto;;
+import com.example.demo.deepseek.DeepSeekMovieDto;
 import com.example.demo.exception.DeepSeekApiException;
 import com.example.demo.mapper.MovieMapper;
 import org.junit.jupiter.api.Test;
