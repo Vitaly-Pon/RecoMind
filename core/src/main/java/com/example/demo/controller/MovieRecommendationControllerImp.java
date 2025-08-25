@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MovieRecommendationControllerImp implements MovieRecommendationController{
     private final MovieRecommendationService service;
 
-    public MovieRecommendationsResponse getRecommendMoviesInGenre(@Valid @RequestBody MovieRecommendationRequest request) { //TODO убрать обджект
+    public MovieRecommendationsResponse getRecommendMoviesInGenre(@Valid @RequestBody MovieRecommendationRequest request) {
         return service.getMovieRecommendations(request.getGenre(), request.getCount());
     }
 
