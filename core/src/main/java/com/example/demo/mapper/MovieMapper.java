@@ -1,7 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.deepseek.MovieInfo;
-import com.example.demo.domain.MovieRecommendationModel;
+import com.example.demo.entity.MovieRecommendationModel;
 
 import java.util.List;
 

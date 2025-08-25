@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
-import com.example.demo.domain.MovieRecommendationModel;
+import com.example.demo.entity.MovieRecommendationModel;
 import com.example.demo.util.PromptTemplatesUtil;
 import com.example.demo.deepseek.DeepSeekApiClient;
 import lombok.AllArgsConstructor;

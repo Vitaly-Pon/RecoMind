@@ -1,6 +1,6 @@
 package com.example.demo.controller.dto.response;
 
-import com.example.demo.domain.MovieRecommendationModel;
+import com.example.demo.entity.MovieRecommendationModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
