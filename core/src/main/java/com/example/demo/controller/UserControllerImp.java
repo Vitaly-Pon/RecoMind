@@ -22,17 +22,14 @@ import java.util.List;
 public class UserControllerImp implements UserController {
     private final UserServiceImp userServiceImp;
 
-    @PostMapping("/register")
     public UserResponseDto register(@Valid @RequestBody UserRegistrationRequest request) {
         return userServiceImp.register(request);
     }
 
-    @GetMapping
     public List<UserResponseDto> getAllUsers() {
         return userServiceImp.getAllUsers();
     }
 
-    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userServiceImp.deleteUser(id);
         return ResponseEntity.ok("Пользователь с id " + id + " успешно удалён");

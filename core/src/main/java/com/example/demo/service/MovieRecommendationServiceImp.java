@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.controller.dto.response.MovieRecommendationResponse;
 import com.example.demo.entity.MovieRecommendationModel;
 import com.example.demo.util.PromptTemplatesUtil;
 import com.example.demo.deepseek.DeepSeekApiClient;

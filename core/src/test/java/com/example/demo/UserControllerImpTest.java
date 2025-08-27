@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //                .password("strongPass")
 //                .build();
 //
-//        mockMvc.perform(post("/users/register") // предполагаю, что у тебя эндпоинт такой
+//        mockMvc.perform(post("/users/register")
 //                        .contentType(MediaType.APPLICATION_JSON)
 //                        .content(objectMapper.writeValueAsString(request)))
 //                .andExpect(status().isOk())
