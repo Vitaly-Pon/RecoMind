@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.UserRegistrationRequest;
 import com.example.demo.dto.UserResponseDto;
 import com.example.demo.entity.User;
+import com.example.demo.exception.UserAlreadyExistsException;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class UserServiceImp  implements UserService {
     public UserResponseDto register(UserRegistrationRequest request) {
         // существует ли уже username
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
-            throw new RuntimeException("Имя пользователя уже занято");
+            throw new UserAlreadyExistsException("Имя пользователя уже занято");
         }
 
         User user = User.builder()

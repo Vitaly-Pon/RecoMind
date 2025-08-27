@@ -23,15 +23,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, unique = true)
     private String username;
+
     @Column(nullable = false)
     private String password;
 
-    private LocalDateTime createdAt;
-
-    @PrePersist //автоматически вызывается перед сохранением сущности в базу.
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
+    @Column(nullable = false, updatable = false, insertable = false)
+    private LocalDateTime createdAt; // БД сама подставит CURRENT_TIMESTAMP
 }

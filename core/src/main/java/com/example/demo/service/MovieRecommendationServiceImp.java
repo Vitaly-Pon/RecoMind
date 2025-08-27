@@ -16,14 +16,18 @@ public class MovieRecommendationServiceImp implements MovieRecommendationService
     private final DeepSeekApiClient client;
 
     @Override
-    public MovieRecommendationResponse getMovieRecommendations(String genre, int count) {
-        List<MovieRecommendationModel> movies = client.getRecommendations(PromptTemplatesUtil.generateGenrePrompt(genre, count), count);
-        return MovieRecommendationResponse.fromDomainList(movies);
+    public List<MovieRecommendationModel> getMovieRecommendations(String genre, int count) {
+        return client.getRecommendations(
+                PromptTemplatesUtil.generateGenrePrompt(genre, count),
+                count
+        );
     }
 
     @Override
-    public MovieRecommendationResponse getMovieRecommendationsOnEmotion(String emotion, int count) {
-        List<MovieRecommendationModel> movies = client.getRecommendations(PromptTemplatesUtil.generateEmotionPrompt(emotion, count), count);
-        return MovieRecommendationResponse.fromDomainList(movies);
+    public List<MovieRecommendationModel> getMovieRecommendationsOnEmotion(String emotion, int count) {
+        return client.getRecommendations(
+                PromptTemplatesUtil.generateEmotionPrompt(emotion, count),
+                count
+        );
     }
 }

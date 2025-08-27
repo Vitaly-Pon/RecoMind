@@ -9,9 +9,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class MovieRecommendationResponse {
-    private List<MovieRecommendationModel> movies;
+    private List<MovieRecommendationDto> movies;
 
-    public static MovieRecommendationResponse fromDomainList(List<MovieRecommendationModel> domainMovies) {
-        return new MovieRecommendationResponse(domainMovies);
+    public static MovieRecommendationResponse fromDtoList(List<MovieRecommendationDto> dtoMovies) {
+        return new MovieRecommendationResponse(dtoMovies);
     }
 }
