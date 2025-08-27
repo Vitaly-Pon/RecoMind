@@ -1,4 +1,4 @@
-package com.example.demo.controller.dto.response;
+package com.example.demo.controller.response;
 
 import lombok.Data;
 

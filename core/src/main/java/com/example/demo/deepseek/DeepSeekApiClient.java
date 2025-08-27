@@ -4,7 +4,7 @@ import com.example.demo.config.DeepSeekConfig;
 import com.example.demo.deepseek.dto.ChatMessageRequest;
 import com.example.demo.deepseek.dto.DeepSeekChatRequest;
 import com.example.demo.deepseek.dto.DeepSeekChatResponse;
-import com.example.demo.entity.MovieRecommendationModel;
+import com.example.demo.service.dto.MovieRecommendationDto;
 import com.example.demo.exception.DeepSeekApiException;
 import com.example.demo.mapper.MovieMapper;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class DeepSeekApiClient {
     private final RestTemplate restTemplate;
     private final DeepSeekResponseParser parser;
 
-    public List<MovieRecommendationModel> getRecommendations(String prompt, int count) {
+    public List<MovieRecommendationDto> getRecommendations(String prompt, int count) {
         DeepSeekChatRequest request = buildRequest(prompt, count);
         String rawResponse = send(request);
         List<DeepSeekMovieDto> infos = parser.parse(rawResponse);

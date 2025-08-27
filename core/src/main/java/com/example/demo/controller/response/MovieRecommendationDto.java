@@ -1,16 +1,17 @@
-package com.example.demo.entity;
+package com.example.demo.controller.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-// Доменная модель независимая от JSON и API.
+
 @Data
 @AllArgsConstructor
-public class MovieRecommendationModel {
+@Builder
+public class MovieRecommendationDto {
     private String title;
     private Integer year;
     private String director;
     private Double imdbRating;
     private Double kinopoiskRating;
     private String description;
-
 }

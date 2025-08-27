@@ -1,12 +1,11 @@
-package com.example.demo.controller.dto.response;
+package com.example.demo.service.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+
 
 @Data
 @AllArgsConstructor
-@Builder
 public class MovieRecommendationDto {
     private String title;
     private Integer year;

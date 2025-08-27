@@ -1,4 +1,4 @@
-    package com.example.demo.exception;
+    package com.example.demo.controller.exception.handler.response;
 
     import lombok.AllArgsConstructor;
     import lombok.Data;

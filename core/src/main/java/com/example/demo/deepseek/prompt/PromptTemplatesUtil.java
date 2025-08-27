@@ -1,4 +1,4 @@
-package com.example.demo.util;
+package com.example.demo.deepseek.prompt;
 
 public class PromptTemplatesUtil {
     private static final String JSON_EXAMPLE =
@@ -33,5 +33,3 @@ public class PromptTemplatesUtil {
         return String.format(BASE_TEMPLATE, count, emotionPhase);
     }
 }
-
-//TODO  реализовать Регистрация пользователя и база данных

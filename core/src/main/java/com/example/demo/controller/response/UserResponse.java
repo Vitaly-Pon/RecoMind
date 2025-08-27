@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserResponseDto {
+public class UserResponse {
     private Long id;
     private String username;
     private LocalDateTime createdAt;

@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.MovieRecommendationModel;
-import com.example.demo.util.PromptTemplatesUtil;
+import com.example.demo.service.dto.MovieRecommendationDto;
+import com.example.demo.deepseek.prompt.PromptTemplatesUtil;
 import com.example.demo.deepseek.DeepSeekApiClient;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class MovieRecommendationServiceImp implements MovieRecommendationService
     private final DeepSeekApiClient client;
 
     @Override
-    public List<MovieRecommendationModel> getMovieRecommendations(String genre, int count) {
+    public List<MovieRecommendationDto> getMovieRecommendations(String genre, int count) {
         return client.getRecommendations(
                 PromptTemplatesUtil.generateGenrePrompt(genre, count),
                 count
@@ -23,7 +23,7 @@ public class MovieRecommendationServiceImp implements MovieRecommendationService
     }
 
     @Override
-    public List<MovieRecommendationModel> getMovieRecommendationsOnEmotion(String emotion, int count) {
+    public List<MovieRecommendationDto> getMovieRecommendationsOnEmotion(String emotion, int count) {
         return client.getRecommendations(
                 PromptTemplatesUtil.generateEmotionPrompt(emotion, count),
                 count

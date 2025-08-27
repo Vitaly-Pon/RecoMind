@@ -1,13 +1,12 @@
 package com.example.demo.mapper;
 
-import com.example.demo.controller.dto.response.MovieRecommendationDto;
-import com.example.demo.entity.MovieRecommendationModel;
+import com.example.demo.service.dto.MovieRecommendationDto;
 
 import java.util.List;
 
 public class MovieRecommendationRestMapper {
-    public static MovieRecommendationDto toDto(MovieRecommendationModel model) {
-        return MovieRecommendationDto.builder()
+    public static com.example.demo.controller.response.MovieRecommendationDto toDto(MovieRecommendationDto model) {
+        return com.example.demo.controller.response.MovieRecommendationDto.builder()
                 .title(model.getTitle())
                 .year(model.getYear())
                 .director(model.getDirector())
@@ -17,7 +16,7 @@ public class MovieRecommendationRestMapper {
                 .build();
     }
 
-    public static List<MovieRecommendationDto> toDtoList(List<MovieRecommendationModel> models) {
+    public static List<com.example.demo.controller.response.MovieRecommendationDto> toDtoList(List<MovieRecommendationDto> models) {
         return models.stream()
                 .map(MovieRecommendationRestMapper::toDto)
                 .toList();

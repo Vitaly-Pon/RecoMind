@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.controller.dto.request.MovieRecByEmotionRequest;
-import com.example.demo.controller.dto.request.MovieRecommendationRequest;
-import com.example.demo.controller.dto.response.MovieRecommendationResponse;
+import com.example.demo.controller.request.MovieRecByEmotionRequest;
+import com.example.demo.controller.request.MovieRecommendationRequest;
+import com.example.demo.controller.response.MovieRecommendationResponse;
 import com.example.demo.mapper.MovieRecommendationRestMapper;
 import com.example.demo.service.MovieRecommendationService;
 import jakarta.validation.Valid;

@@ -21,7 +21,7 @@ public class DeepSeekResponseParser {
                 .replaceAll("(?s)```json\\s*", "")
                 .replaceAll("(?s)```", "")
                 .trim();
-        // Обертка для JSON с ключом "movies"
+
         DeepSeekMoviesResult wrapper = objectMapper.readValue(cleaned, DeepSeekMoviesResult.class);
         return wrapper.getMovies();
     }

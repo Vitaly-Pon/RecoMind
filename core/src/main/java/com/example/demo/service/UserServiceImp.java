@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.UserRegistrationRequest;
-import com.example.demo.dto.UserResponseDto;
-import com.example.demo.entity.User;
+import com.example.demo.controller.request.UserRegistrationRequest;
+import com.example.demo.controller.response.UserResponse;
+import com.example.demo.repository.entity.User;
 import com.example.demo.exception.UserAlreadyExistsException;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.repository.UserRepository;
@@ -18,7 +18,7 @@ public class UserServiceImp  implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder; // внедрится бин
 
-    public UserResponseDto register(UserRegistrationRequest request) {
+    public UserResponse register(UserRegistrationRequest request) {
         // существует ли уже username
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             throw new UserAlreadyExistsException("Имя пользователя уже занято");
@@ -33,7 +33,7 @@ public class UserServiceImp  implements UserService {
         return UserMapper.toDto(savedUser);
     }
 
-    public List<UserResponseDto> getAllUsers() {
+    public List<UserResponse> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(UserMapper::toDto)
                 .toList();

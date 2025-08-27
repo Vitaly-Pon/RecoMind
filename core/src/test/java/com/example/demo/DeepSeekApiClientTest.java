@@ -1,12 +1,12 @@
 package com.example.demo;
 
-import com.example.demo.controller.dto.response.ChatMessageResponse;
+import com.example.demo.controller.response.ChatMessageResponse;
 import com.example.demo.deepseek.DeepSeekApiClient;
 import com.example.demo.deepseek.DeepSeekMovieDto;
 import com.example.demo.deepseek.DeepSeekResponseParser;
 import com.example.demo.deepseek.dto.DeepSeekChatResponse;
 import com.example.demo.deepseek.dto.DeepSeekChoice;
-import com.example.demo.entity.MovieRecommendationModel;
+import com.example.demo.service.dto.MovieRecommendationDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -67,7 +67,7 @@ public class DeepSeekApiClientTest {
         when(parser.parse("Recommended Content")).thenReturn(mockParsedList);
 
         // Вызываем метод клиента
-        List<MovieRecommendationModel> result = apiClient.getRecommendations("Ужасы", 3);
+        List<MovieRecommendationDto> result = apiClient.getRecommendations("Ужасы", 3);
 
         assertNotNull(result);
         assert(result.size() == 2);

@@ -1,5 +1,8 @@
-package com.example.demo.exception;
+package com.example.demo.controller.exception.handler;
 
+import com.example.demo.controller.exception.handler.response.ErrorResponse;
+import com.example.demo.exception.DeepSeekApiException;
+import com.example.demo.exception.UserAlreadyExistsException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
