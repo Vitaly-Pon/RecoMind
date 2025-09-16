@@ -73,5 +73,13 @@
                 constraintName="uk_user_movie_rating_unique"/>
     </changeSet>
 
+    <changeSet id="3" author="yourname">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="user_movie_rating" columnName="rating"/>
+        </preConditions>
+
+        <modifyDataType tableName="user_movie_rating" columnName="rating" newDataType="NUMERIC(3,1)"/>
+    </changeSet>
+
 
 </databaseChangeLog>

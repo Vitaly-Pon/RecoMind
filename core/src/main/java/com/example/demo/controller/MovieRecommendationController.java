@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/movies/recommendations")
+@RequestMapping("/movies")
 public interface MovieRecommendationController {
 
-    @PostMapping("/genre")
+    @PostMapping("/genre/recommendations")
     MovieRecommendationResponse getRecommendMoviesInGenre(
             @Valid @RequestBody MovieRecommendationRequest request);
-@PostMapping("/emotion")
+
+    @PostMapping("/emotion/recommendations")
     MovieRecommendationResponse getRecMoviesBasedOnEmotion(
             @Valid @RequestBody MovieRecommendationRequest request);
 

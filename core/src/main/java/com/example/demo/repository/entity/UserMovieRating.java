@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -48,8 +49,8 @@ public class UserMovieRating {
     @Column(name = "movie_year")
     private Integer movieYear;
 
-    @Column(name = "rating")
-    private Integer rating;
+    @Column(name = "rating", nullable = false, precision = 3, scale = 1) // теперь BigDecimal с 1 знаком после запятой
+    private BigDecimal rating;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
     private LocalDateTime createdAt;
@@ -70,5 +71,4 @@ public class UserMovieRating {
                 .rating(req.getRating())
                 .build();
     }
-
 }

@@ -1,5 +1,6 @@
 package com.example.demo.controller.request;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -17,10 +18,9 @@ public class MovieRecommendationRequest{
     @Max(value = 10, message = "Максимум десять фильмов")
     private Integer count = 5;
 
-    public void validate() {
-        if (genre == null && emotion == null) {
-            throw new IllegalArgumentException("Необходимо указать genre или emotion");
-        }
+    @AssertTrue(message = "Нужно указать хотя бы genre или emotion")
+    public boolean isGenreOrEmotionPresent() {
+        return genre != null || emotion != null;
     }
 }
 

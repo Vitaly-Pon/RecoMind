@@ -22,5 +22,5 @@ public interface UserController {
     List<UserResponse> getAllUsers();
 
     @DeleteMapping("/{id}")
-    ResponseEntity<String> deleteUser(@PathVariable Long id);
+    ResponseEntity<Void> deleteUser(@PathVariable Long id);
 }

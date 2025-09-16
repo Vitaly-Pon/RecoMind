@@ -15,7 +15,7 @@ public class MovieRecommendationControllerImp implements MovieRecommendationCont
 
     private final MovieRecommendationService service;
 
-    // === РЕКОМЕНДАЦИИ ПО ЖАНРУ ===
+    @Override
     public MovieRecommendationResponse getRecommendMoviesInGenre(
             @Valid @RequestBody MovieRecommendationRequest request
     ) {
@@ -26,7 +26,7 @@ public class MovieRecommendationControllerImp implements MovieRecommendationCont
         );
     }
 
-    // === РЕКОМЕНДАЦИИ ПО ЭМОЦИИ ===
+    @Override
     public MovieRecommendationResponse getRecMoviesBasedOnEmotion(
             @Valid @RequestBody MovieRecommendationRequest request
     ) {
