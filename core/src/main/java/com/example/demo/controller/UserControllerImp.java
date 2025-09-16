@@ -25,7 +25,7 @@ public class UserControllerImp implements UserController {
         return userServiceImp.getAllUsers();
     }
 
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) { //TODO не возвращать объект(только код)
         userServiceImp.deleteUser(id);
         return ResponseEntity.ok(String.format("Пользователь с id %s успешно удалён", id));
     }

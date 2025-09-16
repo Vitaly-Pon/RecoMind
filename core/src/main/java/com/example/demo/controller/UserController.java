@@ -18,7 +18,7 @@ public interface UserController {
     @PostMapping("/register")
     UserResponse register(@Valid @RequestBody UserRegistrationRequest request);
 
-    @GetMapping
+    @GetMapping("/all")
     List<UserResponse> getAllUsers();
 
     @DeleteMapping("/{id}")

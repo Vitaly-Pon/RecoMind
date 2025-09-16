@@ -5,7 +5,14 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.23.xsd">
 
+    <!-- Таблица пользователей -->
     <changeSet id="1" author="yourname">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="app_user"/>
+            </not>
+        </preConditions>
+
         <createTable tableName="app_user">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -21,5 +28,50 @@
             </column>
         </createTable>
     </changeSet>
+
+    <!-- Таблица оценок пользователя -->
+    <changeSet id="2" author="yourname">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_movie_rating"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="user_movie_rating">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="movie_title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="director" type="VARCHAR(255)"/>
+            <column name="movie_year" type="INT"/>
+            <column name="rating" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genre" type="VARCHAR(255)"/>
+            <column name="emotion" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="user_movie_rating"
+                baseColumnNames="user_id"
+                referencedTableName="app_user"
+                referencedColumnNames="id"
+                constraintName="fk_user_movie_rating_user"
+                onDelete="CASCADE"/>
+
+        <addUniqueConstraint
+                tableName="user_movie_rating"
+                columnNames="user_id, movie_title, movie_year"
+                constraintName="uk_user_movie_rating_unique"/>
+    </changeSet>
+
 
 </databaseChangeLog>

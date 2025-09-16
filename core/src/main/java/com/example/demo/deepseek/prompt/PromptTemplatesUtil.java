@@ -1,5 +1,7 @@
 package com.example.demo.deepseek.prompt;
 
+import java.util.List;
+
 public class PromptTemplatesUtil {
     private static final String JSON_EXAMPLE =
             "{\"movies\": [{\"title\": " +
@@ -23,13 +25,22 @@ public class PromptTemplatesUtil {
     private PromptTemplatesUtil() {
     }
 
-    public static String generateGenrePrompt(String genre, int count) {
+    public static String generateGenrePrompt(String genre, int count, List<String> excluded) {
         String genrePhase = String.format(GENRE_TEMPLATE, genre);
-        return String.format(BASE_TEMPLATE, count, genrePhase);
+        String excludePhase = buildExcludeClause(excluded);
+        return String.format(BASE_TEMPLATE, count, genrePhase) + excludePhase;
     }
 
-    public static String generateEmotionPrompt(String emotion, int count) {
+    public static String generateEmotionPrompt(String emotion, int count, List<String> excluded) {
         String emotionPhase = String.format(EMOTION_TEMPLATE, emotion);
-        return String.format(BASE_TEMPLATE, count, emotionPhase);
+        String excludePhase = buildExcludeClause(excluded);
+        return String.format(BASE_TEMPLATE, count, emotionPhase) + excludePhase;
+    }
+
+    private static String buildExcludeClause(List<String> excluded) {
+        if (excluded == null || excluded.isEmpty()) {
+            return "";
+        }
+        return " Не включай в список следующие фильмы: " + String.join(", ", excluded) + ".";
     }
 }

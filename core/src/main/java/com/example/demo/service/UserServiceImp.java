@@ -19,7 +19,6 @@ public class UserServiceImp  implements UserService {
     private final PasswordEncoder passwordEncoder; // внедрится бин
 
     public UserResponse register(UserRegistrationRequest request) {
-        // существует ли уже username
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             throw new UserAlreadyExistsException("Имя пользователя уже занято");
         }

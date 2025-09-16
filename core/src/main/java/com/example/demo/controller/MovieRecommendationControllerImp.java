@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.controller.request.MovieRecByEmotionRequest;
 import com.example.demo.controller.request.MovieRecommendationRequest;
 import com.example.demo.controller.response.MovieRecommendationResponse;
 import com.example.demo.mapper.MovieRecommendationRestMapper;
@@ -13,23 +12,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class MovieRecommendationControllerImp implements MovieRecommendationController {
+
     private final MovieRecommendationService service;
 
+    // === РЕКОМЕНДАЦИИ ПО ЖАНРУ ===
     public MovieRecommendationResponse getRecommendMoviesInGenre(
-            @Valid @RequestBody MovieRecommendationRequest request) {
-
+            @Valid @RequestBody MovieRecommendationRequest request
+    ) {
         return new MovieRecommendationResponse(
                 MovieRecommendationRestMapper.toDtoList(
-                        service.getMovieRecommendations(request.getGenre(), request.getCount()))
+                        service.getMovieRecommendations(request.getGenre(), request.getCount())
+                )
         );
     }
 
+    // === РЕКОМЕНДАЦИИ ПО ЭМОЦИИ ===
     public MovieRecommendationResponse getRecMoviesBasedOnEmotion(
-            @Valid @RequestBody MovieRecByEmotionRequest request) {
-
+            @Valid @RequestBody MovieRecommendationRequest request
+    ) {
         return new MovieRecommendationResponse(
                 MovieRecommendationRestMapper.toDtoList(
-                        service.getMovieRecommendationsOnEmotion(request.getEmotion(), request.getCount()))
+                        service.getMovieRecommendationsOnEmotion(request.getEmotion(), request.getCount())
+                )
         );
     }
 }
