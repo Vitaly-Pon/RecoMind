@@ -1,8 +1,7 @@
 package com.example.demo.service;
 
 
-import com.example.demo.controller.request.MovieRecommendationRequest;
-import com.example.demo.deepseek.prompt.PromptTemplatesUtil;
+
 import com.example.demo.service.dto.MovieRecommendationDto;
 
 import java.util.List;
