@@ -22,7 +22,6 @@ import java.util.List;
 @RequestMapping("/user/movie")
 public class UserMovieRatingControllerImp implements UserMovieRatingController {
 
-    private final MovieRecommendationService movieRecommendationService;
     private final UserMovieRatingService userMovieRatingService;
 
     @Override

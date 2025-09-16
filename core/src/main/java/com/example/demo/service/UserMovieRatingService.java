@@ -26,7 +26,6 @@ public class UserMovieRatingService {
     private final UserMovieRatingRepository userMovieRatingRepository;
     private final UserRepository userRepository;
     private final MovieRecommendationService movieRecommendationService;
-    private final RecommendationProperties properties;
 
     //Сохранить или обновить оценку фильма.
     @Transactional
