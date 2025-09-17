@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "recommendations")
 public class RecommendationProperties {
-    private int maxFetchLimit = 30; // дефолт, если не указан в properties
+    private int maxFetchLimit = 5; // дефолт
 
 }

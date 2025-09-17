@@ -14,20 +14,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-@RequestMapping("/user/movie")
-public interface UserMovieRatingController {
+@RequestMapping("/movie")
+public interface MovieRatingController {
 
     @PostMapping("/genre/recommendations")
     MovieRecommendationResponse getRecommendationsByGenre(
-            @Valid @RequestBody MovieRecommendationRequest request);
+            @Valid @RequestBody MovieRecommendationRequest request); //TODO это выглядит как дубль, убрать?
 
     @PostMapping("/emotion/recommendations")
     MovieRecommendationResponse getRecommendationsByEmotion(
-            @Valid @RequestBody MovieRecommendationRequest request);
+            @Valid @RequestBody MovieRecommendationRequest request);//TODO это выглядит как дубль, убрать?
+
 
     @PostMapping("/ratings")
     UserMovieRatingResponse rateMovie(@RequestBody UserMovieRatingRequest request);
 
     @GetMapping("/users/{userId}/ratings")
-    UserMovieRatingHistoryResponse getUserRecommendationHistory(@PathVariable Long userId);
+    UserMovieRatingHistoryResponse getUserRecommendationHistory(@PathVariable Long userId);//TODO вынести в другой контроллера
 }

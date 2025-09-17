@@ -7,13 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserMovieRating {
+public class MovieRating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,40 +35,26 @@ public class UserMovieRating {
     private User user;
 
     @Column(name = "genre")
-    private String genre;
+    private String genre;//todo убрать
 
     @Column(name = "emotion")
-    private String emotion;
+    private String emotion;//todo убрать
 
     @Column(name = "movie_title")
-    private String movieTitle;
+    private String movieTitle;//todo убрать
+
+    private Movie movie;
 
     @Column(name = "director")
-    private String director;
+    private String director;//todo убрать
 
     @Column(name = "movie_year")
-    private Integer movieYear;
+    private Integer movieYear;//todo убрать
 
     @Column(name = "rating", nullable = false, precision = 3, scale = 1) // теперь BigDecimal с 1 знаком после запятой
     private BigDecimal rating;
 
+    @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
     private LocalDateTime createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        if (createdAt == null) {
-            createdAt = LocalDateTime.now();
-        }
-    }
-
-    public static UserMovieRating fromRequest(com.example.demo.controller.request.UserMovieRatingRequest req, User user) {
-        return UserMovieRating.builder()
-                .user(user)
-                .genre(req.getGenre())
-                .emotion(req.getEmotion())
-                .movieTitle(req.getTitle())
-                .rating(req.getRating())
-                .build();
-    }
 }

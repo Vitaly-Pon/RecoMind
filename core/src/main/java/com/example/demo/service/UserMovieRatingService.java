@@ -5,7 +5,7 @@ import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.UserMovieRatingRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.entity.User;
-import com.example.demo.repository.entity.UserMovieRating;
+import com.example.demo.repository.entity.MovieRating;
 import com.example.demo.service.dto.MovieRecommendationDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,21 +26,22 @@ public class UserMovieRatingService {
     private final UserMovieRatingRepository userMovieRatingRepository;
     private final UserRepository userRepository;
     private final MovieRecommendationService movieRecommendationService;
+    private final RecommendationProperties recommendationProperties;
 
     //Сохранить или обновить оценку фильма.
     @Transactional
-    public UserMovieRating rateMovieEntity(Long userId, String genre, String emotion, String title, BigDecimal rating) {
+    public MovieRating rateMovie(Long userId, String genre, String emotion, String title, BigDecimal rating) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
-        Optional<UserMovieRating> existing = userMovieRatingRepository.findByUserAndMovieTitle(user, title);
+        Optional<MovieRating> existing = userMovieRatingRepository.findByUserAndMovieTitle(user, title);
 
-        UserMovieRating entity;
+        MovieRating entity;
         if (existing.isPresent()) {
             entity = existing.get();
             entity.setRating(rating);
         } else {
-            entity = UserMovieRating.builder()
+            entity = MovieRating.builder()
                     .user(user)
                     .genre(genre)
                     .emotion(emotion)
@@ -52,57 +53,89 @@ public class UserMovieRatingService {
         return userMovieRatingRepository.save(entity);
     }
 
-    //Получить все оценки пользователя.
-    public List<UserMovieRating> getUserRatings(Long userId) {
+    //Получить все оценки пользователя
+    public List<MovieRating> getUserRatings(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
         return userMovieRatingRepository.findAllByUser(user);
     }
 
-    //Рекомендации по жанру с исключением уже оценённых фильмов.
+    //Рекомендации по жанру с исключением уже оценённых фильмов
     public List<MovieRecommendationDto> getFilteredByGenre(Long userId, String genre, int count) {
-        return getFilteredMovies(userId, count,
-                fetchCount -> movieRecommendationService.getMovieRecommendationsWithExclusions(
-                        genre,
-                        fetchCount + getUserRatings(userId).size(), // немного больше для фильтрации
-                        getUserRatings(userId).stream()
-                                .map(UserMovieRating::getMovieTitle)
-                                .toList()
-                )
-        );
-    }
-
-    public List<MovieRecommendationDto> getFilteredByEmotion(Long userId, String emotion, int count) {
-        return getFilteredMovies(userId, count,
-                fetchCount -> movieRecommendationService.getMovieRecommendationsOnEmotionWithExclusions(
-                        emotion,
-                        fetchCount + getUserRatings(userId).size(),
-                        new ArrayList<>()
-                )
-        );
-    }
-
-    // Общий метод фильтрации, чтобы не дублировать код
-    private List<MovieRecommendationDto> getFilteredMovies(
-            Long userId,
-            int count,
-            java.util.function.Function<Integer, List<MovieRecommendationDto>> fetchFunction
-    ) {
-        Set<String> excluded = getUserRatings(userId).stream()
-                .map(UserMovieRating::getMovieTitle)
+        List<MovieRating> userRatings = getUserRatings(userId);
+        Set<String> excluded = userRatings.stream()
+                .map(MovieRating::getMovieTitle)
                 .filter(Objects::nonNull)
                 .map(String::trim)
                 .map(String::toLowerCase)
                 .collect(Collectors.toSet());
 
-        // Получаем рекомендации с небольшим запасом, чтобы хватило после фильтрации
-        List<MovieRecommendationDto> recs = fetchFunction.apply(count);
+        return getFilteredWithDynamicFetch(
+                count,
+                fetchCount -> movieRecommendationService.getMovieRecommendationsWithExclusions(
+                        genre,
+                        fetchCount,
+                        new ArrayList<>(excluded)
+                ),
+                excluded
+        );
+    }
 
-        // Фильтруем уже оценённые и оставляем ровно count фильмов
-        return recs.stream()
-                .filter(r -> r.getTitle() != null && !excluded.contains(r.getTitle().trim().toLowerCase()))
-                .limit(count)
-                .toList();
+    public List<MovieRecommendationDto> getFilteredByEmotion(Long userId, String emotion, int count) {
+        List<MovieRating> userRatings = getUserRatings(userId);
+        Set<String> excluded = userRatings.stream()
+                .map(MovieRating::getMovieTitle)
+                .filter(Objects::nonNull)
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .collect(Collectors.toSet());
+
+        return getFilteredWithDynamicFetch(
+                count,
+                fetchCount -> movieRecommendationService.getMovieRecommendationsOnEmotionWithExclusions(
+                        emotion,
+                        fetchCount,
+                        new ArrayList<>(excluded)
+                ),
+                excluded
+        );
+    }
+
+    private List<MovieRecommendationDto> getFilteredWithDynamicFetch(
+            int count,
+            java.util.function.Function<Integer, List<MovieRecommendationDto>> fetchFunction,
+            Set<String> excluded
+    ) {
+        List<MovieRecommendationDto> result = new ArrayList<>();
+        int remaining = count; // сколько нужно добавить
+        int maxExtraPerRequest = recommendationProperties.getMaxFetchLimit();
+        int maxIterations = 3; // максимум 3 дозагрузки
+        int iteration = 0; //счетчик
+
+        while (remaining > 0 && iteration < maxIterations) {
+            int fetchCount = remaining + maxExtraPerRequest;
+            List<MovieRecommendationDto> fetched = fetchFunction.apply(fetchCount);
+
+            // фильтруем уже добавленные и оценённые фильмы
+            List<MovieRecommendationDto> filtered = fetched.stream()
+                    .filter(r -> r.getTitle() != null)
+                    .filter(r -> !excluded.contains(r.getTitle().trim().toLowerCase()))
+                    .filter(r -> result.stream()
+                            .noneMatch(existing -> existing.getTitle().equalsIgnoreCase(r.getTitle())))
+                    .toList();
+
+            result.addAll(filtered);
+
+            remaining = count - result.size();
+            iteration++;
+        }
+
+        //  ровно count фильмов
+        if (result.size() > count) {
+            return result.subList(0, count);
+        }
+
+        return result;
     }
 }

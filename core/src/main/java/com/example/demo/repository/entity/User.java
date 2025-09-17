@@ -40,7 +40,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<UserMovieRating> movieRatings = new ArrayList<>();
+    private List<MovieRating> movieRatings = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

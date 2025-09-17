@@ -16,9 +16,7 @@ public class MovieRecommendationControllerImp implements MovieRecommendationCont
     private final MovieRecommendationService service;
 
     @Override
-    public MovieRecommendationResponse getRecommendMoviesInGenre(
-            @Valid @RequestBody MovieRecommendationRequest request
-    ) {
+    public MovieRecommendationResponse getRecommendMoviesInGenre(@Valid @RequestBody MovieRecommendationRequest request) {
         return new MovieRecommendationResponse(
                 MovieRecommendationRestMapper.toDtoList(
                         service.getMovieRecommendations(request.getGenre(), request.getCount())
@@ -27,9 +25,7 @@ public class MovieRecommendationControllerImp implements MovieRecommendationCont
     }
 
     @Override
-    public MovieRecommendationResponse getRecMoviesBasedOnEmotion(
-            @Valid @RequestBody MovieRecommendationRequest request
-    ) {
+    public MovieRecommendationResponse getRecMoviesBasedOnEmotion(@Valid @RequestBody MovieRecommendationRequest request) {
         return new MovieRecommendationResponse(
                 MovieRecommendationRestMapper.toDtoList(
                         service.getMovieRecommendationsOnEmotion(request.getEmotion(), request.getCount())

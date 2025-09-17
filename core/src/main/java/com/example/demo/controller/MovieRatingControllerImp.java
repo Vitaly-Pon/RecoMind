@@ -7,8 +7,7 @@ import com.example.demo.controller.response.UserMovieRatingHistoryResponse;
 import com.example.demo.controller.response.UserMovieRatingResponse;
 import com.example.demo.mapper.MovieRecommendationRestMapper;
 import com.example.demo.mapper.UserMovieRatingRestMapper;
-import com.example.demo.repository.entity.UserMovieRating;
-import com.example.demo.service.MovieRecommendationService;
+import com.example.demo.repository.entity.MovieRating;
 import com.example.demo.service.UserMovieRatingService;
 import com.example.demo.service.dto.MovieRecommendationDto;
 import jakarta.validation.Valid;
@@ -20,7 +19,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/user/movie")
-public class UserMovieRatingControllerImp implements UserMovieRatingController {
+public class MovieRatingControllerImp implements MovieRatingController {
 
     private final UserMovieRatingService userMovieRatingService;
 
@@ -40,10 +39,10 @@ public class UserMovieRatingControllerImp implements UserMovieRatingController {
 
     @Override
     public UserMovieRatingResponse rateMovie(@Valid @RequestBody UserMovieRatingRequest request) {
-        UserMovieRating saved = userMovieRatingService.rateMovieEntity(
+        MovieRating saved = userMovieRatingService.rateMovie(
                 request.getUserId(),
-                request.getGenre(),
-                request.getEmotion(),
+                request.getGenre(),  //todo убрать
+                request.getEmotion(),//todo убрать
                 request.getTitle(),
                 request.getRating()
         );
@@ -52,7 +51,7 @@ public class UserMovieRatingControllerImp implements UserMovieRatingController {
 
     @Override
     public UserMovieRatingHistoryResponse getUserRecommendationHistory(@PathVariable Long userId) {
-        List<UserMovieRating> ratings = userMovieRatingService.getUserRatings(userId);
+        List<MovieRating> ratings = userMovieRatingService.getUserRatings(userId);
         return new UserMovieRatingHistoryResponse(UserMovieRatingRestMapper.toDtoList(ratings));
     }
 }
