@@ -5,7 +5,7 @@ import com.example.demo.controller.response.UserMovieRatingHistoryResponse;
 import com.example.demo.controller.response.UserResponse;
 import com.example.demo.mapper.UserMovieRatingRestMapper;
 import com.example.demo.repository.entity.MovieRating;
-import com.example.demo.service.UserMovieRatingService;
+import com.example.demo.service.UserMovieRatingServiceImp;
 import com.example.demo.service.UserServiceImp;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserControllerImp implements UserController {
     private final UserServiceImp userServiceImp;
-    private final UserMovieRatingService userMovieRatingService;
+    private final UserMovieRatingServiceImp userMovieRatingServiceImp;
 
     @Override
     public UserResponse register(@Valid @RequestBody UserRegistrationRequest request) {
@@ -40,7 +40,7 @@ public class UserControllerImp implements UserController {
 
     @Override
     public UserMovieRatingHistoryResponse getUserRecommendationHistory(@PathVariable Long userId) {
-        List<MovieRating> ratings = userMovieRatingService.getUserRatings(userId);
+        List<MovieRating> ratings = userMovieRatingServiceImp.getUserRatings(userId);
         return new UserMovieRatingHistoryResponse(UserMovieRatingRestMapper.toDtoList(ratings));
     }
 }

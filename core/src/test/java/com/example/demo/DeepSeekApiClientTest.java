@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -41,11 +42,11 @@ public class DeepSeekApiClientTest {
 
     @Test
     void shouldReturnParsedMoviesWhenApiReturnsValidResponse() {
-        // Мок ответа от RestTemplate
+        //  Мокируем ответ RestTemplate
         DeepSeekChatResponse chatResponse = new DeepSeekChatResponse();
         DeepSeekChoice choice = new DeepSeekChoice();
         ChatMessageResponse message = new ChatMessageResponse();
-        message.setContent("Recommended Content");
+        message.setContent("Recommended Content"); // <- именно это вернёт send()
         choice.setMessage(message);
         chatResponse.setChoices(List.of(choice));
 
@@ -59,20 +60,21 @@ public class DeepSeekApiClientTest {
                 eq(DeepSeekChatResponse.class)
         )).thenReturn(responseEntity);
 
-        // Мок парсера — возвращаем список MovieInfo
+        // Мокируем парсер на результат, который вернёт getRecommendations
         List<DeepSeekMovieDto> mockParsedList = List.of(
                 new DeepSeekMovieDto("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
                 new DeepSeekMovieDto("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2")
         );
         when(parser.parse("Recommended Content")).thenReturn(mockParsedList);
 
-        // Вызываем метод клиента
-        List<MovieRecommendationDto> result = apiClient.getRecommendations("Ужасы", 3);
+        // Вызываем метод
+        List<MovieRecommendationDto> result = apiClient.getRecommendations("Ужасы", 2);
 
+        //  Проверяем результат
         assertNotNull(result);
-        assert(result.size() == 2);
-        assert(result.get(0).getTitle().equals("Фильм 1"));
-        assert(result.get(1).getTitle().equals("Фильм 2"));
+        assertEquals(2, result.size());
+        assertEquals("Фильм 1", result.get(0).getTitle());
+        assertEquals("Фильм 2", result.get(1).getTitle());
 
         verify(parser, times(1)).parse("Recommended Content");
     }
