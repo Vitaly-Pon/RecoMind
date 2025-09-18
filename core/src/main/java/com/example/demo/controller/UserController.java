@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.controller.request.UserRegistrationRequest;
+import com.example.demo.controller.response.UserMovieRatingHistoryResponse;
 import com.example.demo.controller.response.UserResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -23,4 +24,7 @@ public interface UserController {
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteUser(@PathVariable Long id);
+
+    @GetMapping("{userId}/ratings")
+    UserMovieRatingHistoryResponse getUserRecommendationHistory(@PathVariable Long userId);//TODO вынести в другой контроллера +
 }

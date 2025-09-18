@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_movie_rating",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "movie_title"}))
+        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id"}))
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,22 +34,9 @@ public class MovieRating {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "genre")
-    private String genre;//todo убрать
-
-    @Column(name = "emotion")
-    private String emotion;//todo убрать
-
-    @Column(name = "movie_title")
-    private String movieTitle;//todo убрать
-
+    @ManyToOne
+    @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
-
-    @Column(name = "director")
-    private String director;//todo убрать
-
-    @Column(name = "movie_year")
-    private Integer movieYear;//todo убрать
 
     @Column(name = "rating", nullable = false, precision = 3, scale = 1) // теперь BigDecimal с 1 знаком после запятой
     private BigDecimal rating;

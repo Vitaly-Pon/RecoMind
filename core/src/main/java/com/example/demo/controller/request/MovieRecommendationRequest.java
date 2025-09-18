@@ -23,5 +23,3 @@ public class MovieRecommendationRequest{
         return genre != null || emotion != null;
     }
 }
-
-
