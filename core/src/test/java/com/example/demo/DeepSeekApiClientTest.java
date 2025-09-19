@@ -1,12 +1,12 @@
 package com.example.demo;
 
-import com.example.demo.config.DeepSeekConfig;
-import com.example.demo.controller.dto.response.ChatMessageResponse;
-import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
+import com.example.demo.controller.response.ChatMessageResponse;
 import com.example.demo.deepseek.DeepSeekApiClient;
-import com.example.demo.deepseek.MovieResponseParser;
+import com.example.demo.deepseek.DeepSeekMovieDto;
+import com.example.demo.deepseek.DeepSeekResponseParser;
 import com.example.demo.deepseek.dto.DeepSeekChatResponse;
-import com.example.demo.deepseek.dto.RecommendationChoice;
+import com.example.demo.deepseek.dto.DeepSeekChoice;
+import com.example.demo.service.dto.MovieRecommendationDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -34,19 +35,18 @@ public class DeepSeekApiClientTest {
     private RestTemplate restTemplate;
 
     @MockitoBean
-    private MovieResponseParser parser;
+    private DeepSeekResponseParser parser;
 
     @Autowired
     private DeepSeekApiClient apiClient;
 
     @Test
     void shouldReturnParsedMoviesWhenApiReturnsValidResponse() {
-        // Создаём мок ответа от RestTemplate
+        //  Мокируем ответ RestTemplate
         DeepSeekChatResponse chatResponse = new DeepSeekChatResponse();
-        RecommendationChoice choice = new RecommendationChoice();
+        DeepSeekChoice choice = new DeepSeekChoice();
         ChatMessageResponse message = new ChatMessageResponse();
-
-        message.setContent("Recommended Content");  // <-- используем сеттер
+        message.setContent("Recommended Content"); // <- именно это вернёт send()
         choice.setMessage(message);
         chatResponse.setChoices(List.of(choice));
 
@@ -60,12 +60,22 @@ public class DeepSeekApiClientTest {
                 eq(DeepSeekChatResponse.class)
         )).thenReturn(responseEntity);
 
-        MovieRecommendationsResponse mockParsed = new MovieRecommendationsResponse(List.of());
-        when(parser.parse("Recommended Content")).thenReturn(mockParsed);
+        // Мокируем парсер на результат, который вернёт getRecommendations
+        List<DeepSeekMovieDto> mockParsedList = List.of(
+                new DeepSeekMovieDto("Фильм 1", 2020, "Режиссер 1", 7.5, 8.5, "Описание 1"),
+                new DeepSeekMovieDto("Фильм 2", 2021, "Режиссер 2", 6.0, 7.0, "Описание 2")
+        );
+        when(parser.parse("Recommended Content")).thenReturn(mockParsedList);
 
-        MovieRecommendationsResponse result = apiClient.getRecommendations("Ужасы", 3);
+        // Вызываем метод
+        List<MovieRecommendationDto> result = apiClient.getRecommendations("Ужасы", 2);
 
+        //  Проверяем результат
         assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("Фильм 1", result.get(0).getTitle());
+        assertEquals("Фильм 2", result.get(1).getTitle());
+
         verify(parser, times(1)).parse("Recommended Content");
     }
 }

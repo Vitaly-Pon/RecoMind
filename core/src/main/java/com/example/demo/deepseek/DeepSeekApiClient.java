@@ -2,10 +2,11 @@ package com.example.demo.deepseek;
 
 import com.example.demo.config.DeepSeekConfig;
 import com.example.demo.deepseek.dto.ChatMessageRequest;
-import com.example.demo.controller.dto.response.MovieRecommendationsResponse;
 import com.example.demo.deepseek.dto.DeepSeekChatRequest;
 import com.example.demo.deepseek.dto.DeepSeekChatResponse;
+import com.example.demo.service.dto.MovieRecommendationDto;
 import com.example.demo.exception.DeepSeekApiException;
+import com.example.demo.mapper.MovieMapper;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpEntity;
@@ -25,12 +26,14 @@ public class DeepSeekApiClient {
 
     private final DeepSeekConfig config;
     private final RestTemplate restTemplate;
-    private final MovieResponseParser parser;
+    private final DeepSeekResponseParser parser;
 
-    public MovieRecommendationsResponse getRecommendations(String prompt, int count) {
+    public List<MovieRecommendationDto> getRecommendations(String prompt, int count) {
         DeepSeekChatRequest request = buildRequest(prompt, count);
         String rawResponse = send(request);
-        return parser.parse(rawResponse);
+        List<DeepSeekMovieDto> infos = parser.parse(rawResponse);
+        return MovieMapper.toDomainList(infos);
+
     }
 
     private DeepSeekChatRequest buildRequest(String prompt, int count) {

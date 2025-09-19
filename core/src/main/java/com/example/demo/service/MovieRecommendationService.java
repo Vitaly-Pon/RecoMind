@@ -1,7 +1,16 @@
 package com.example.demo.service;
 
+import com.example.demo.service.dto.MovieRecommendationDto;
+
+import java.util.List;
 
 public interface MovieRecommendationService {
-    Object getMovieRecommendations(String genre, int count);
-    Object getMovieRecommendationsOnEmotion(String emotion, int count);
+
+    List<MovieRecommendationDto> getMovieRecommendations(String genre, int count);
+
+    List<MovieRecommendationDto> getMovieRecommendationsOnEmotion(String emotion, int count);
+
+    List<MovieRecommendationDto> getMovieRecommendationsWithExclusions(String genre, int count, List<String> excluded);
+
+    List<MovieRecommendationDto> getMovieRecommendationsOnEmotionWithExclusions(String emotion, int count, List<String> excluded);
 }

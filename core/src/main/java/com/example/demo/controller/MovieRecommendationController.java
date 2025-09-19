@@ -1,19 +1,22 @@
 package com.example.demo.controller;
 
-import com.example.demo.controller.dto.request.MovieRecByEmotionRequest;
-import com.example.demo.controller.dto.request.MovieRecommendationRequest;
+
+import com.example.demo.controller.request.MovieRecommendationRequest;
+import com.example.demo.controller.response.MovieRecommendationResponse;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/movies")
+@RequestMapping("/movie")
 public interface MovieRecommendationController {
 
-    @PostMapping("/genre")
-    Object getRecommendMoviesInGenre(@Valid @RequestBody MovieRecommendationRequest request);
+    @PostMapping("/genre/recommendations")
+    MovieRecommendationResponse getRecommendMoviesInGenre(
+            @Valid @RequestBody MovieRecommendationRequest request);
 
-    @PostMapping("/emotion")
-    Object getRecMoviesBasedOnEmotion(@Valid @RequestBody MovieRecByEmotionRequest request);
+    @PostMapping("/emotion/recommendations")
+    MovieRecommendationResponse getRecMoviesBasedOnEmotion(
+            @Valid @RequestBody MovieRecommendationRequest request);
+
 }
-
